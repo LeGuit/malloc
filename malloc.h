@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/29 17:46:23 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/29 17:55:43 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,8 @@ struct		s_zone
 	t_dlst			head;
 	uint32_t const	q_size;
 	uint32_t const	r_size;
-	void			(*malloc_reg)(size_t size, t_zone *zone);
-	void			(*malloc_large)(size_t size, t_zone *zone)
-	void			(*realloc_reg)(void *ptr, size_t size, t_zone *zone);
-	void			(*realloc_large)(void *ptr, size_t size, t_zone *zone);
+	void			(*ft_malloc)(size_t size, t_zone *zone);
+	void			(*ft_realloc)(void *ptr, size_t size, t_zone *zone);
 };
 /*
 ** ========================================================================== **

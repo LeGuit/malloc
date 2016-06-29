@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc.c                                           :+:      :+:    :+:   */
+/*   realloc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/29 11:36:31 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/29 17:56:16 by gwoodwar         ###   ########.fr       */
+/*   Created: 2016/06/29 17:52:42 by gwoodwar          #+#    #+#             */
+/*   Updated: 2016/06/29 17:56:03 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_malloc	g_zone = {
 	}
 };
 
-void		*malloc(size_t size)
+void		*realloc(void *ptr, size_t size)
 {
 	uint32_t	i;
 
@@ -44,7 +44,7 @@ void		*malloc(size_t size)
 	while (i < 3)
 	{
 		if (size <= g_zone[i].q_size)
-			return (g_zone[i]->ft_malloc(size, g_zone[i]));
+			return (g_zone[i]->ft_realloc(ptr, size, g_zone[i]));
 	}
 	return (NULL);
 }
