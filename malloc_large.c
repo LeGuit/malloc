@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_chunk.c                                       :+:      :+:    :+:   */
+/*   malloc_large.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/29 12:05:19 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/29 15:08:00 by gwoodwar         ###   ########.fr       */
+/*   Created: 2016/06/29 18:04:31 by gwoodwar          #+#    #+#             */
+/*   Updated: 2016/06/29 18:05:15 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-t_chunk		find_chunk(t_dlst *head, size_t size)
+void		*malloc_large(size_t size, t_zone *zone)
 {
-	t_dlst		*it;
-	t_chunk		chunk;
-
-	while (it->next != head)
-	{
-		chunk = C_NODE(t_chunk,it);
-		if (chunk->remain_size >= size /* + size meta data */)
-			return (chunk);
-		it = it->next;
-	}
-	return (add_chunk(head));// need to know the size of the chunk
+	
 }
