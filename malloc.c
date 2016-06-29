@@ -6,14 +6,51 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:36:31 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/29 11:38:51 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/29 17:46:32 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "malloc.h"
+
+t_malloc	g_zone = {
+	{
+		DLST_INIT(&g_zone.tiny),
+		16,
+		TINY_SIZE,
+		&malloc_reg,
+		NULL,
+		&realloc_reg,
+		NULL
+	},
+	{
+		DLST_INIT(&g_zone.small),
+		512,
+		SMALL_SIZE,
+		&malloc_reg,
+		NULL,
+		&realloc_reg,
+		NULL
+	},
+	{
+		DLST_INIT(&g_zone.large),
+		MAX_LARGE - CHUNK_SIZE,
+		MAX_LARGE,
+		NULL,
+		&malloc_large,
+		NULL,
+		&realloc_large
+	}
+};
+
 void		*malloc(size_t size)
 {
-	void		*ptr;
+	uint32_t	i;
 
-	ptr = NULL;
-	return (ptr);
+	i = 0;
+	while (i < 3)
+	{
+		if (size <= g_zone[i].q_size)
+			return (g_zone[i]->my_malloc(size, g_zone[i]))
+	}
+	return (NULL);
 }

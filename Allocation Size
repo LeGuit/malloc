@@ -1,0 +1,10 @@
+Allocation Size							Code path name	Quantum size (Allocation resolution)	Region size
+
+32-bit: 1 byte to 496 bytes																		32-bit: 1MB
+64-bit: 1 byte to 992 bytes				Tiny			16 bytes								64-bit: 2MB
+
+32-bit: 497 bytes to "Large" threshold															32-bit: 8MB
+64-bit: 993 bytes to "Large" threshold	Small			512 bytes								64-bit: 16MB
+
+< 1GB RAM: 15kB or greater
+>= 1GB RAM: 127kB or greater			Large			4kB										N/A
