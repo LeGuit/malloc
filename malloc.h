@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/29 18:40:31 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/06/30 15:54:08 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 //# define	ALIGN4(x)	(((((x) - 1) >> 2) << 2) + 4)
 # define	CHUNK_SIZE	sizeof(t_chunk)
 # define	META_SIZE	sizeof(t_block)
-# define	PAGE_SIZE	(4096)
+# define	PAGE_SIZE	(getpagesize())
 # define	TINY_SIZE	(521 * PAGE_SIZE)
 # define	SMALL_SIZE	(4096 * PAGE_SIZE)
 # define	MAX_LARGE	(976563 * PAGE_SIZE)
