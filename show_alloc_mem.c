@@ -6,15 +6,32 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/06 14:34:29 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/07/06 15:26:24 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/07/06 15:45:10 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
+#define BLOCK_ADR(ptr)		(ptr + META_SIZE)
+
 static int		show_large(t_zone *z)
 {
-	
+	t_dlst			*it;
+	t_chunk			*c;
+	t_block			*b;
+	uint32_t		sum;
+
+	sum = 0;
+	it = z->head;
+	while((it = it->next) != z->head)
+	{
+		c = C_NODE(t_chunk, it);
+		b = b + CHUNK_SIZE + META_SIZE;
+		ft_printf("%s : %#X\n", z->name, c)
+		ft_printf("%#X - %#X : %u octets", b, b + b->size, b->size);
+		sum += b->size;
+	}
+	return (sum);
 }
 
 static int		show_blocks(t_chunk *c)
@@ -28,9 +45,14 @@ static int		show_blocks(t_chunk *c)
 	while ((it = it->next) != c->h_block)
 	{
 		b = C_NODE(t_block, it);
-		ft_printf("%#X - %#X : %u\n", )
+		if(b->free = 0)
+		{
+			ft_printf("%#X - %#X : %u octets\n",
+				BLOCK_ADR(b),BLOCK_ADR(b + b->size), size);
+			sum += b->size;
+		}
 	}
-
+	return (sum);
 }
 
 static int		show_tiny_small(t_zone *z)

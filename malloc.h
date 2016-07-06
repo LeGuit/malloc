@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/07/06 15:07:46 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/07/06 16:55:33 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 ** 					this define align to the next 4 multiple
 ** CHUNK_SIZE =>	size of the header of a chunk
 */
-//# define	ALIGN4(x)	(((((x) - 1) >> 2) << 2) + 4)
-# define	CHUNK_SIZE	sizeof(t_chunk)
-# define	META_SIZE	sizeof(t_block)
-# define	PAGE_SIZE	(getpagesize())
-# define	TINY_SIZE	(521 * PAGE_SIZE)
-# define	SMALL_SIZE	(4096 * PAGE_SIZE)
-# define	MAX_LARGE	(976563 * PAGE_SIZE)
+
+# define CHUNK_SIZE		sizeof(t_chunk)
+# define META_SIZE		sizeof(t_block)
+# define PAGE_SIZE		(getpagesize())
+# define TINY_SIZE		(521 * PAGE_SIZE)
+# define SMALL_SIZE		(4096 * PAGE_SIZE)
+# define MAX_LARGE		(976563 * PAGE_SIZE)
 
 typedef struct s_chunk	t_chunk;
 typedef struct s_malloc	t_malloc;
@@ -36,18 +36,6 @@ typedef struct s_block	t_block;
 typedef enum e_z_name	t_z_name;
 
 extern t_malloc g_zone;
-
-/*
-** ========================================================================== **
-** enum for type of zone
-*/
-
-enum 		e_z_name
-{
-	TINY,
-	SMALL,
-	LARGE,
-};
 
 /*
 ** ========================================================================== **
@@ -65,7 +53,6 @@ struct		s_chunk
 /*
 ** ========================================================================== **
 ** blocks struct in chunks
-** 
 */
 
 struct		s_block
@@ -104,12 +91,29 @@ struct		s_malloc
 	t_zone		zone[3];
 };
 
-
-
 /*
 ** ========================================================================== **
 ** Chunk functions
 */
-t_chunk		find_chunk(t_dlst *head, t_chunk *last, size_t size);
-t_chunk		add_chunk(t_dlst *head);
+t_chunk			find_chunk(t_dlst *head, t_chunk *last, size_t size);
+t_chunk			add_chunk(t_dlst *head);
+
+/*
+** ========================================================================== **
+** Print allocated memory sorted by type from TINY to LARGE
+** Format :
+** 		TYPE : ADR of chunk
+** 			range of block : size of it
+*/
+
+void			show_alloc_mem(void);
+
+/*
+** ========================================================================== **
+** Free part
+*/
+
+int				free_block(void *ptr);
+void			free(void *ptr);
+
 #endif
