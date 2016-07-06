@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:36:31 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/29 18:13:06 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/07/06 15:08:19 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_malloc	g_zone = {
 		DLST_INIT(&g_zone.tiny),
 		16,
 		TINY_SIZE,
+		"TINY",
 		&malloc_reg,
 		&realloc_reg,
 	},
@@ -25,6 +26,7 @@ t_malloc	g_zone = {
 		DLST_INIT(&g_zone.small),
 		512,
 		SMALL_SIZE,
+		"SMALL",
 		&malloc_reg,
 		&realloc_reg,
 	},
@@ -32,6 +34,7 @@ t_malloc	g_zone = {
 		DLST_INIT(&g_zone.large),
 		MAX_LARGE - CHUNK_SIZE,
 		MAX_LARGE,
+		"LARGE",
 		&malloc_large,
 		&realloc_large
 	}

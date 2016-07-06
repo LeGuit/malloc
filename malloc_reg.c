@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 18:02:13 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/30 12:26:03 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/07/06 15:12:27 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ static t_chunk		*find_chunk(t_zone *zone, size_t size)
 	t_dlst				*it;
 	t_chunk				*chunk;
 
-	while (it->next != zone->head)
+	it = zone->head;
+	while ((it = it->next) != zone->head)
 	{
 		chunk = C_NODE(t_chunk,it);
 		if (chunk->remain_size >= size + META_SIZE)
 			return (chunk);
-		it = it->next;
 	}
 	return (add_chunk(zone));
 }
@@ -66,7 +66,8 @@ static t_block		*find_block(t_chunk *chunk, size_t size);
 	t_block				*free_block;
 	t_dlst				*it;
 
-	while (it->next != chunk->h_block)
+	it = chunk->h_block;
+	while ((it = it->next) != chunk->h_block)
 	{
 		free_block = C_NODE(t_block, it);
 		if (free_block->free && free_block->size >= size)

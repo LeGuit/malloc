@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/06/30 15:54:08 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/07/06 15:07:46 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,21 @@ typedef struct s_chunk	t_chunk;
 typedef struct s_malloc	t_malloc;
 typedef struct s_zone	t_zone;
 typedef struct s_block	t_block;
+typedef enum e_z_name	t_z_name;
 
 extern t_malloc g_zone;
+
+/*
+** ========================================================================== **
+** enum for type of zone
+*/
+
+enum 		e_z_name
+{
+	TINY,
+	SMALL,
+	LARGE,
+};
 
 /*
 ** ========================================================================== **
@@ -69,14 +82,17 @@ struct		s_block
 ** 		q_size =>	quantum size (16b / 512b / 4kb - Tiny / Small / Large)
 ** 		r_size =>	region size (2MB / 16MB / N/A)
 */
+
 struct		s_zone
 {
 	t_dlst			head;
 	uint32_t const	q_size;
 	uint32_t const	r_size;
+	char const		*name;
 	void			(*ft_malloc)(size_t size, t_zone *zone);
 	void			(*ft_realloc)(void *ptr, size_t size, t_zone *zone);
 };
+
 /*
 ** ========================================================================== **
 ** mall is the env struct
