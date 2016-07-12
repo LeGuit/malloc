@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/06 16:25:14 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/07/12 19:13:02 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/07/12 19:17:25 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ void			free(void *ptr)
 		ft_printf("free error: ptr is not allocated");
 		return ;
 	}
+	free_block(ptr);
 }

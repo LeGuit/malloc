@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 19:12:09 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/07/12 19:12:28 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/07/12 19:17:15 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int				is_in_chunk(t_zone *z, void *ptr)
 		c = C_NODE(t_chunk, it);
 		if (ptr > c && ptr < c + c->r_size)
 			if (!is_block(c, ptr))
-				return(free_block(ptr));
+				return(0);
 	}
 	return (1);
 }	
