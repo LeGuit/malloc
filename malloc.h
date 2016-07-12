@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/07/12 18:12:13 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/07/12 19:12:55 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,4 +117,11 @@ void			show_alloc_mem(void);
 int				free_block(void *ptr);
 void			free(void *ptr);
 
+
+/*
+** ========================================================================== **
+** Tools
+*/
+int				is_in_block(t_chunk *c);
+int				is_in_chunk(t_zone *z, void *ptr);
 #endif

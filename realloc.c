@@ -6,13 +6,18 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 17:52:42 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/07/12 18:09:26 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/07/12 19:11:30 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void		*realloc(void *ptr, size_t size)
+static t_block	*realloc_reg(void *ptr, size_t size, t_zone *zone)
+{
+
+}
+
+void			*realloc(void *ptr, size_t size) //send ptr could be false
 {
 	uint32_t	i;
 
