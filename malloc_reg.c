@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 18:02:13 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/07/06 15:12:27 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/07/12 18:43:16 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_chunk		*add_chunk(t_zone *zone)
 	first_block = new + CHUNK_SIZE;
 	first_block = DLST_INIT(&first_block->h_dlst);
 	first_block->size = new->remain_size - META_SIZE;
-	first_block->free = 1;
+	first_block->free = true;
 	dlst_add_tail(first_block, new->h_block);
 	dlst_add_tail(new, zone->head);
 	return (new);
@@ -52,11 +52,11 @@ static t_block		*split_block(t_chunk *chunk, t_block *free_block,
 {
 	t_block				*remain_block;
 
-	remain_block = free_block + BLOCK_SIZE(size);
+	remain_block = free_block + BLOCK_SIZE(size); // ALIGN BLOCK
 	remain_block->size = chunk->remain_size - BLOCK_SIZE(size);
-	remain_block->free = 1;
+	remain_block->free = true;
 	free_block->size = size;
-	free_block->free = 0;
+	free_block->free = false;
 	dlst_add_tail(remain_block, chunk->h_block);
 	return (free_block + META_SIZE);
 }

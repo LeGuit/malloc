@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/07/06 16:55:33 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/07/12 18:12:13 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MALLOC_H
 
 # include "libft.h"
+# include <stdbool.h>
 
 /*
 ** ========================================================================== **
@@ -59,7 +60,7 @@ struct		s_block
 {
 	t_dlst		b_dlst;
 	uint32_t	size;
-	int			free;
+	bool		free;
 };
 
 /*
