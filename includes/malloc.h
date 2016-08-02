@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/02 16:09:38 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/02 16:22:58 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 ** CHUNK_SIZE =>	size of the header of a chunk
 */
 
-# define CHUNK_SIZE		sizeof(t_chunk)
-# define META_SIZE		sizeof(t_block)
+# define CHUNK_SIZE		(uint32_t)sizeof(t_chunk)
+# define META_SIZE		(uint32_t)sizeof(t_block)
 /*
 ** Temp getpagesize() = 4096 because of the non initialise
 */
@@ -141,6 +141,7 @@ void			free(void *ptr);
 /*
 ** ========================================================================== **
 ** Realloc part
+** Those func needs to be done
 */
 void			*realloc_reg(void *ptr, size_t size, t_zone *zone);
 void			*realloc_large(void *ptr, size_t size, t_zone *zone);

@@ -6,14 +6,14 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:36:31 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/02 15:55:52 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/02 16:20:59 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
 t_malloc	g_zone = {
-	{
+	(t_zone){
 		DLST_INIT(&g_zone.zone[0].head),
 		16,
 		TINY_SIZE,
@@ -21,7 +21,7 @@ t_malloc	g_zone = {
 		&malloc_reg,
 		&realloc_reg,
 	},
-	{
+	(t_zone){
 		DLST_INIT(&g_zone.zone[1].head),
 		512,
 		SMALL_SIZE,
@@ -29,13 +29,13 @@ t_malloc	g_zone = {
 		&malloc_reg,
 		&realloc_reg,
 	},
-	{
+	(t_zone){
 		DLST_INIT(&g_zone.zone[2].head),
 		MAX_LARGE - CHUNK_SIZE,
 		MAX_LARGE,
 		"LARGE",
 		&malloc_large,
-		&realloc_large
+		&realloc_large,
 	}
 };
 

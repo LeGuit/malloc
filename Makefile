@@ -6,7 +6,7 @@
 #    By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/02 13:44:47 by gwoodwar          #+#    #+#              #
-#    Updated: 2016/08/02 15:07:16 by gwoodwar         ###   ########.fr        #
+#    Updated: 2016/08/02 16:19:02 by gwoodwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ clean:
 
 fclean: clean
 	/bin/rm -f $(NAME)
+	/bin/rm -f $(LINK)
 
 re: fclean all
 
