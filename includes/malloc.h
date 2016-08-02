@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/07/12 19:12:55 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/02 15:21:29 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define MALLOC_H
 
 # include "libft.h"
+
 # include <stdbool.h>
+# include <sys/mman.h>
 
 /*
 ** ========================================================================== **
@@ -25,10 +27,20 @@
 
 # define CHUNK_SIZE		sizeof(t_chunk)
 # define META_SIZE		sizeof(t_block)
-# define PAGE_SIZE		(getpagesize())
+/*
+** Temp getpagesize() = 4096 because of the non initialise
+*/
+# define PAGE_SIZE		(4096)
 # define TINY_SIZE		(521 * PAGE_SIZE)
 # define SMALL_SIZE		(4096 * PAGE_SIZE)
 # define MAX_LARGE		(976563 * PAGE_SIZE)
+
+/*
+** ========================================================================== **
+** Macro for mmap PROT && FLAG
+*/
+# define MMAP_PROT			PROT_READ | PROT_WRITE
+# define MMAP_FLAG			MAP_ANON | MAP_PRIVATE
 
 typedef struct s_chunk	t_chunk;
 typedef struct s_malloc	t_malloc;
@@ -77,8 +89,8 @@ struct		s_zone
 	uint32_t const	q_size;
 	uint32_t const	r_size;
 	char const		*name;
-	void			(*ft_malloc)(size_t size, t_zone *zone);
-	void			(*ft_realloc)(void *ptr, size_t size, t_zone *zone);
+	void			*(*ft_malloc)(size_t size, t_zone *zone);
+	void			*(*ft_realloc)(void *ptr, size_t size, t_zone *zone);
 };
 
 /*
@@ -111,12 +123,27 @@ void			show_alloc_mem(void);
 
 /*
 ** ========================================================================== **
+** Malloc part
+*/
+
+void			*malloc_reg(size_t size, t_zone *zone);
+void			*malloc_large(size_t size, t_zone *zone);
+
+
+/*
+** ========================================================================== **
 ** Free part
 */
 
 int				free_block(void *ptr);
 void			free(void *ptr);
 
+/*
+** ========================================================================== **
+** Realloc part
+*/
+void			*realloc_reg(void *ptr, size_t size, t_zone *zone);
+void			*realloc_large(void *ptr, size_t size, t_zone *zone);
 
 /*
 ** ========================================================================== **
@@ -124,4 +151,5 @@ void			free(void *ptr);
 */
 int				is_in_block(t_chunk *c);
 int				is_in_chunk(t_zone *z, void *ptr);
+// int				is_in_chunk_l(t_zone *z, void *ptr);
 #endif

@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 18:02:13 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/07/12 18:43:16 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/02 15:26:26 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_chunk		*add_chunk(t_zone *zone)
 	t_chunk				*new;
 	t_block				*first_block;
 
-	new = mmap(zone->r_size);
+	new = mmap(0, zone->r_size, MMAP_PROT, MMAP_FLAG);
 	new->h_block = DLST_INIT(&new->h_block);
 	new->remain_size = zone->r_size - CHUNK_SIZE;
 	first_block = new + CHUNK_SIZE;
