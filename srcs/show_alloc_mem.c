@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/06 14:34:29 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/07/06 15:45:10 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/02 15:42:14 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static int		show_blocks(t_chunk *c)
 	t_block			*b;
 
 	sum = 0;
-	it = c->h_block;
-	while ((it = it->next) != c->h_block)
+	it = c->c_dlst;
+	while ((it = it->next) != c->c_dlst)
 	{
 		b = C_NODE(t_block, it);
 		if(b->free = 0)

@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/02 15:21:29 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/02 16:09:38 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ extern t_malloc g_zone;
 /*
 ** ========================================================================== **
 ** memory chunk struct
-** 		h_block =>		head of chunks
+** 		c_dlst =>		head of chunks
 ** 		remain_size => 	size of biggest free block or size of chunk for LARGE
 */
 
 struct		s_chunk
 {
-	t_dlst		h_block;
+	t_dlst		c_dlst;
 	uint32_t	remain_size;
 };
 
@@ -108,8 +108,8 @@ struct		s_malloc
 ** ========================================================================== **
 ** Chunk functions
 */
-t_chunk			find_chunk(t_dlst *head, t_chunk *last, size_t size);
-t_chunk			add_chunk(t_dlst *head);
+// t_chunk			find_chunk(t_dlst *head, t_chunk *last, size_t size);
+// t_chunk			add_chunk(t_dlst *head);
 
 /*
 ** ========================================================================== **
@@ -149,7 +149,7 @@ void			*realloc_large(void *ptr, size_t size, t_zone *zone);
 ** ========================================================================== **
 ** Tools
 */
-int				is_in_block(t_chunk *c);
+int				is_in_block(t_chunk *c, void *ptr);
 int				is_in_chunk(t_zone *z, void *ptr);
 // int				is_in_chunk_l(t_zone *z, void *ptr);
 #endif

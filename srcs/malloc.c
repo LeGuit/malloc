@@ -6,11 +6,10 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:36:31 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/02 15:15:48 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/02 15:55:52 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_dlst.h"
 #include "malloc.h"
 
 t_malloc	g_zone = {
