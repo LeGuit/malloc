@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 19:12:09 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/02 16:09:16 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/02 16:36:52 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,21 @@ int				is_in_chunk(t_zone *z, void *ptr)
 		c = C_NODE(t_chunk, it);
 		if (ptr > (void *)&c->c_dlst && ptr < ((void *)&c->c_dlst + z->r_size))
 			if (!is_in_block(c, ptr))
+				return(0);
+	}
+	return (1);
+}	
+
+int				is_in_chunk_large(t_zone *z, void *ptr)
+{
+	t_dlst			*it;
+	t_chunk			*c;
+
+	it = &z->head;
+	while((it = it->next) != &z->head)
+	{
+		c = C_NODE(t_chunk, it);
+		if (ptr == (void *)&c->c_dlst + CHUNK_SIZE)
 				return(0);
 	}
 	return (1);

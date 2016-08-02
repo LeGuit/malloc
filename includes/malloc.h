@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/02 16:22:58 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/02 16:35:05 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,5 +152,5 @@ void			*realloc_large(void *ptr, size_t size, t_zone *zone);
 */
 int				is_in_block(t_chunk *c, void *ptr);
 int				is_in_chunk(t_zone *z, void *ptr);
-// int				is_in_chunk_l(t_zone *z, void *ptr);
+int				is_in_chunk_large(t_zone *z, void *ptr);
 #endif
