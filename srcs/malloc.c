@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:36:31 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/02 16:20:59 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/03 15:13:50 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_malloc	g_zone = {
 		TINY_SIZE,
 		"TINY",
 		&malloc_reg,
-		&realloc_reg,
+		&realloc,
 	},
 	(t_zone){
 		DLST_INIT(&g_zone.zone[1].head),
@@ -27,7 +27,7 @@ t_malloc	g_zone = {
 		SMALL_SIZE,
 		"SMALL",
 		&malloc_reg,
-		&realloc_reg,
+		&realloc,
 	},
 	(t_zone){
 		DLST_INIT(&g_zone.zone[2].head),
@@ -35,7 +35,7 @@ t_malloc	g_zone = {
 		MAX_LARGE,
 		"LARGE",
 		&malloc_large,
-		&realloc_large,
+		&realloc,
 	}
 };
 
@@ -44,6 +44,8 @@ void		*malloc(size_t size)
 	uint32_t	i;
 
 	i = 0;
+	if (size > MAX_LARGE)
+		return (NULL);
 	while (i < 3)
 	{
 		if (size <= g_zone.zone[i].q_size)

@@ -6,7 +6,7 @@
 #    By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/02 13:44:47 by gwoodwar          #+#    #+#              #
-#    Updated: 2016/08/02 16:19:02 by gwoodwar         ###   ########.fr        #
+#    Updated: 2016/08/03 15:13:05 by gwoodwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ OBJS_DIR =	objs
 LIBS =		libft/libft.a
 
 LIST =	free \
-		free_block \
+		free_op \
 		malloc \
 		malloc_large \
 		malloc_reg \

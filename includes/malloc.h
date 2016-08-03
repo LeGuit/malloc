@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/03 12:35:25 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/03 15:16:58 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ struct		s_zone
 	uint32_t const	r_size;
 	char const		*name;
 	void			*(*ft_malloc)(size_t size, t_zone *zone);
-	void			*(*ft_realloc)(void *ptr, size_t size, t_zone *zone);
+	void			*(*ft_realloc)(void *ptr, size_t size);
 };
 
 /*
@@ -105,7 +105,7 @@ struct		s_malloc
 	t_zone		zone[3];
 };
 
-/*
+	/*
 ** ========================================================================== **
 ** Print allocated memory sorted by type from TINY to LARGE
 ** Format :
@@ -137,8 +137,7 @@ void			free(void *ptr);
 ** Realloc part
 ** Those func needs to be done
 */
-void			*realloc_reg(void *ptr, size_t size, t_zone *zone);
-void			*realloc_large(void *ptr, size_t size, t_zone *zone);
+void			*realloc(void *ptr, size_t size);
 
 /*
 ** ========================================================================== **
