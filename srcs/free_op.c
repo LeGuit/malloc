@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_block.c                                       :+:      :+:    :+:   */
+/*   free_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/06 16:48:10 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/02 14:12:34 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/03 12:18:12 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void		merge_free(void *ptr)
 	t_block			*b;
 	t_block			*adj_b;
 
-	b = ptr - META_SIZE;
+	b = (t_block *)(ptr - META_SIZE);
 	b->free = true;
 	if ((adj_b = C_NODE(t_block, b->b_dlst.prev))->free)
 		b = merge_blocks(adj_b, b);
@@ -32,8 +32,22 @@ static void		merge_free(void *ptr)
 		b = merge_blocks(b, adj_b);
 }
 
-int				free_block(void *ptr)
+void			free_block(void *ptr)
 {
 	merge_free(ptr);
-	return (0);
+	return ;
+}
+
+void			free_large(void *ptr)
+{
+	t_chunk			*c;
+	t_block			*b;
+
+	c = (t_chunk *)(ptr - CHUNK_SIZE);
+	b = (t_block *)(c + CHUNK_SIZE);
+	if (!(munmap(c, b->size + CHUNK_SIZE + META_SIZE) == -1))
+		ft_printf("free large error");
+	dlst_del_entry(&c->c_dlst);
+	return ;
+
 }

@@ -6,13 +6,13 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 19:12:09 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/02 16:36:52 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/03 11:48:04 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-int				is_in_block(t_chunk *c, void *ptr)
+bool			is_in_block(t_chunk *c, void *ptr)
 {
 	t_dlst			*it;
 	t_block			*b;
@@ -22,12 +22,12 @@ int				is_in_block(t_chunk *c, void *ptr)
 	{
 		b = C_NODE(t_block, it);
 		if (ptr > (void *)&b->b_dlst && ptr < (void *)&b->b_dlst + b->size)
-			return (0);
+			return (true);
 	}
-	return (1);
+	return (false);
 }
 
-int				is_in_chunk(t_zone *z, void *ptr)
+bool			is_in_chunk(t_zone *z, void *ptr)
 {
 	t_dlst			*it;
 	t_chunk			*c;
@@ -38,12 +38,12 @@ int				is_in_chunk(t_zone *z, void *ptr)
 		c = C_NODE(t_chunk, it);
 		if (ptr > (void *)&c->c_dlst && ptr < ((void *)&c->c_dlst + z->r_size))
 			if (!is_in_block(c, ptr))
-				return(0);
+				return(false);
 	}
-	return (1);
+	return (true);
 }	
 
-int				is_in_chunk_large(t_zone *z, void *ptr)
+bool			is_in_chunk_large(t_zone *z, void *ptr)
 {
 	t_dlst			*it;
 	t_chunk			*c;
@@ -53,7 +53,7 @@ int				is_in_chunk_large(t_zone *z, void *ptr)
 	{
 		c = C_NODE(t_chunk, it);
 		if (ptr == (void *)&c->c_dlst + CHUNK_SIZE)
-				return(0);
+				return(true);
 	}
-	return (1);
+	return (false);
 }	

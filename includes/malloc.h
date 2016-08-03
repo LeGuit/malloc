@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/02 16:35:05 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/03 11:08:10 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,8 @@ void			*malloc_large(size_t size, t_zone *zone);
 ** Free part
 */
 
-int				free_block(void *ptr);
+void			free_block(void *ptr);
+void			free_large(void *ptr);
 void			free(void *ptr);
 
 /*
@@ -150,7 +151,7 @@ void			*realloc_large(void *ptr, size_t size, t_zone *zone);
 ** ========================================================================== **
 ** Tools
 */
-int				is_in_block(t_chunk *c, void *ptr);
-int				is_in_chunk(t_zone *z, void *ptr);
-int				is_in_chunk_large(t_zone *z, void *ptr);
+bool			is_in_block(t_chunk *c, void *ptr);
+bool			is_in_chunk(t_zone *z, void *ptr);
+bool			is_in_chunk_large(t_zone *z, void *ptr);
 #endif
