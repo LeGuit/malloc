@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/06 16:48:10 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/03 12:18:12 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/03 12:35:55 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,4 @@ void			free_large(void *ptr)
 		ft_printf("free large error");
 	dlst_del_entry(&c->c_dlst);
 	return ;
-
 }

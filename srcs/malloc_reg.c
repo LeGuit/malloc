@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 18:02:13 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/02 15:54:59 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/03 12:39:22 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,12 @@ static t_chunk		*find_chunk(t_zone *zone, size_t size)
 	it = &zone->head;
 	while ((it = it->next) != &zone->head)
 	{
-		chunk = C_NODE(t_chunk,it);
+		chunk = C_NODE(t_chunk, it);
 		if (chunk->remain_size >= size + META_SIZE)
 			return (chunk);
 	}
 	return (add_chunk(zone));
 }
-
 
 void				*malloc_reg(size_t size, t_zone *zone)
 {

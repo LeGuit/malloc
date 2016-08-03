@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/03 11:08:10 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/03 12:35:25 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 
 # define CHUNK_SIZE		(uint32_t)sizeof(t_chunk)
 # define META_SIZE		(uint32_t)sizeof(t_block)
+
 /*
 ** Temp getpagesize() = 4096 because of the non initialise
 */
@@ -106,13 +107,6 @@ struct		s_malloc
 
 /*
 ** ========================================================================== **
-** Chunk functions
-*/
-// t_chunk			find_chunk(t_dlst *head, t_chunk *last, size_t size);
-// t_chunk			add_chunk(t_dlst *head);
-
-/*
-** ========================================================================== **
 ** Print allocated memory sorted by type from TINY to LARGE
 ** Format :
 ** 		TYPE : ADR of chunk
@@ -128,7 +122,6 @@ void			show_alloc_mem(void);
 
 void			*malloc_reg(size_t size, t_zone *zone);
 void			*malloc_large(size_t size, t_zone *zone);
-
 
 /*
 ** ========================================================================== **

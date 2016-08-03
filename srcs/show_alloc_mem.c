@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/06 14:34:29 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/02 16:12:57 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/03 12:38:33 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int		show_large(t_zone *z)
 
 	sum = 0;
 	it = &z->head;
-	while((it = it->next) != &z->head)
+	while ((it = it->next) != &z->head)
 	{
 		c = C_NODE(t_chunk, it);
 		b = b + CHUNK_SIZE + META_SIZE;
@@ -45,10 +45,10 @@ static int		show_blocks(t_chunk *c)
 	while ((it = it->next) != &c->c_dlst)
 	{
 		b = C_NODE(t_block, it);
-		if(b->free == 0)
+		if (b->free == 0)
 		{
 			ft_printf("%#X - %#X : %u octets\n",
-				BLOCK_ADR(b),BLOCK_ADR(b + b->size), b->size);
+				BLOCK_ADR(b), BLOCK_ADR(b + b->size), b->size);
 			sum += b->size;
 		}
 	}
@@ -80,5 +80,5 @@ void			show_alloc_mem(void)
 	total += show_tiny_small(&g_zone.zone[1]);
 	total += show_large(&g_zone.zone[2]);
 	ft_printf("Total : %u octets", total);
-	return ;	
+	return ;
 }
