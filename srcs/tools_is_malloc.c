@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 19:12:09 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 14:05:02 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 15:43:40 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool			is_in_block(t_chunk *c, void *ptr)
 	while (it != &c->blocks_head)
 	{
 		b = C_NODE(t_block, it);
-		if (ptr > (void *)&b->b_dlst && ptr < (void *)&b->b_dlst + b->size)
+		if (ptr > (void *)&b->block_node && ptr < (void *)&b->block_node + b->size)
 			return (true);
 		it = it->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 18:04:31 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 13:59:30 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 16:15:13 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 static t_block	*create_chunk(t_zone *zone, size_t size)
 {
-	t_chunk				*new;
-	t_block				*first_block;
+	t_chunk				*chunk;
+	t_block				*block;
 
-	new = (t_chunk *)mmap(0, zone->r_size, MMAP_PROT, MMAP_FLAG, -1, 0);
-	if ((void *)new == MAP_FAILED)
+	chunk = (t_chunk *)mmap(0, zone->r_size, MMAP_PROT, MMAP_FLAG, -1, 0);
+	if (chunk == MAP_FAILED)
 		return (NULL);
-	new->blocks_head = DLST_INIT(&new->blocks_head);
-	new->remain_size = zone->q_size - (size + CHUNK_SIZE + META_SIZE);
-	dlst_add_tail(&new->blocks_head, &zone->chunks_head);
-	first_block = (t_block *)(new + CHUNK_SIZE);
-	first_block->size = size;
-	first_block->free = false;
-	dlst_add_tail(&first_block->b_dlst, &new->blocks_head);
-	return (first_block + META_SIZE);
+	*chunk = (t_chunk){DLST_HEAD_NULL, DLST_HEAD_NULL,
+		zone->r_size - CHUNK_SIZE - META_SIZE};
+	DLST_HEAD_INIT(chunk->blocks_head);
+	dlst_add_tail(&chunk->blocks_head, &zone->chunks_head);
+	block = (t_block*)(chunk + 1);
+	*block = (t_block){DLST_HEAD_NULL, chunk->remain_size, false};
+	dlst_add_tail(&block->block_node, &chunk->blocks_head);
+	return (block + 1);
 }
 
 void			*malloc_large(size_t size, t_zone *zone)
@@ -37,3 +37,5 @@ void			*malloc_large(size_t size, t_zone *zone)
 	block = create_chunk(zone, size);
 	return (block);
 }
+
+	

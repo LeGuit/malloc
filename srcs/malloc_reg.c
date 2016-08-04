@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 18:02:13 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 15:01:20 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 16:09:36 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ static t_block		*split_block(t_chunk *chunk, t_block *free_block,
 									size_t size)
 {
 	t_block				*remain_block;
+
 ft_printf("split_block\n");
-	remain_block = free_block + BLOCK_SIZE(size); // ALIGN BLOCK
+	remain_block = free_block + ALIGN4(BLOCK_SIZE(size)); // ALIGN BLOCK
 	remain_block->size = chunk->remain_size - BLOCK_SIZE(size);
 	remain_block->free = true;
 	free_block->size = size;
 	free_block->free = false;
-	dlst_add_tail(&remain_block->b_dlst, &chunk->blocks_head);
+	dlst_add_tail(&remain_block->block_node, &chunk->blocks_head);
 	return (free_block + META_SIZE);
 }
 
@@ -39,7 +40,7 @@ ft_printf("find_block\n");
 	while (it != &chunk->blocks_head)
 	{
 		free_block = C_NODE(t_block, it);
-ft_printf(C_CYAN"\tBlock adress: %p is_free: %d size of block = %8d\tsize + META_SIZE = %d\n"C_RESET, it, free_block->free, free_block->size, size + META_SIZE);
+ft_printf(C_CYAN"\tBlock adress: %p is_free: %d size of block = %8d\n"C_RESET, it, free_block->free, free_block->size);
 		if (free_block->free && free_block->size >= size)
 			return (split_block(chunk, free_block, size));
 		it = it->next;
@@ -50,22 +51,25 @@ ft_printf(C_CYAN"\tBlock adress: %p is_free: %d size of block = %8d\tsize + META
 
 static t_chunk		*add_chunk(t_zone *zone)
 {
-	t_chunk				*new;
-	t_block				*first_block;
+	t_chunk				*chunk;
+	t_block				*block;
 
-ft_printf("add_chunk\tregion size: %d q_size: %d\n", zone->r_size, zone->q_size);
-	new = (t_chunk *)mmap(0, zone->r_size, MMAP_PROT, MMAP_FLAG, -1, 0);
-	if ((void *)new == MAP_FAILED)
+	ft_printf("add_chunk\tregion size: %d q_size: %d\n", zone->r_size, zone->q_size);
+	
+	chunk = (t_chunk *)mmap(0, zone->r_size, MMAP_PROT, MMAP_FLAG, -1, 0);
+	if (chunk == MAP_FAILED)
 		return (NULL);
-	new->blocks_head = DLST_INIT(&new->blocks_head);
-	new->remain_size = zone->r_size - CHUNK_SIZE;
-	dlst_add_tail(&new->blocks_head, &zone->chunks_head);
-	first_block = (t_block *)(new + CHUNK_SIZE);
-	first_block->size = new->remain_size - META_SIZE;
-	first_block->free = true;
-	dlst_add_tail(&first_block->b_dlst, &new->blocks_head);
-ft_printf(C_RED"\tChunk adress: %p\n"C_RESET, new);
-	return (new);
+	*chunk = (t_chunk){DLST_HEAD_NULL, DLST_HEAD_NULL,
+		zone->r_size - CHUNK_SIZE - META_SIZE};
+	DLST_HEAD_INIT(chunk->blocks_head);
+	dlst_add_tail(&chunk->chunk_node, &zone->chunks_head);
+	block = (t_block*)(chunk + 1);
+	*block = (t_block){DLST_HEAD_NULL, chunk->remain_size, true};
+	dlst_add_tail(&block->block_node, &chunk->blocks_head);
+
+	ft_printf(C_RED"\tChunk adress: %p\tremain_size:%d\n"C_RESET, chunk, chunk->remain_size);
+	ft_printf(C_MAGENT"\tFirst_B adress: %p\tblock_size:%d\tis_free: %d\n"C_RESET, block, block->size, block->free);
+	return (chunk);
 }
 
 static t_chunk		*find_chunk(t_zone *zone, size_t size)
@@ -78,7 +82,7 @@ ft_printf("find_chunk\n");
 	while (it != &zone->chunks_head)
 	{
 		chunk = C_NODE(t_chunk, it);
-ft_printf(C_GREEN"\tChunk adress: %p size of chunk remain = %8d\tsize + CHUNK_SIZE = %d\n"C_RESET, it, chunk->remain_size, size + CHUNK_SIZE);
+ft_printf(C_GREEN"\tChunk adress: %p size of chunk remain = %8d\n"C_RESET, it, chunk->remain_size);
 		if (chunk->remain_size >= size + META_SIZE)
 		{
 ft_printf("\tChunk found adress: %p\n", chunk);

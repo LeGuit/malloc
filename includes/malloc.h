@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 12:23:10 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 15:43:15 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 
 # define CHUNK_SIZE		(uint32_t)sizeof(t_chunk)
 # define META_SIZE		(uint32_t)sizeof(t_block)
+#define ALIGN4(size)	(((size) + 0b11) & ~0b11)
 
 /*
 ** Temp getpagesize() = 4096 because of the non initialise
@@ -60,6 +61,7 @@ extern t_malloc g_zone;
 
 struct		s_chunk
 {
+	t_dlst		chunk_node;
 	t_dlst		blocks_head;
 	uint32_t	remain_size;
 };
@@ -74,7 +76,7 @@ struct		s_chunk
 
 struct		s_block
 {
-	t_dlst		b_dlst;
+	t_dlst		block_node;
 	uint32_t	size;
 	bool		free;
 };

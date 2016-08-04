@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:36:31 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 14:47:33 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 16:09:20 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_malloc	g_zone = {
 	(t_zone){
-		DLST_INIT(&g_zone.zone[0].chunks_head),
+		DLST_HEAD(g_zone.zone[0].chunks_head),
 		16,
 		TINY_SIZE,
 		"TINY",
@@ -22,7 +22,7 @@ t_malloc	g_zone = {
 		&realloc,
 	},
 	(t_zone){
-		DLST_INIT(&g_zone.zone[1].chunks_head),
+		DLST_HEAD(g_zone.zone[1].chunks_head),
 		512,
 		SMALL_SIZE,
 		"SMALL",
@@ -30,7 +30,7 @@ t_malloc	g_zone = {
 		&realloc,
 	},
 	(t_zone){
-		DLST_INIT(&g_zone.zone[2].chunks_head),
+		DLST_HEAD(g_zone.zone[2].chunks_head),
 		MAX_LARGE - CHUNK_SIZE,
 		MAX_LARGE,
 		"LARGE",
@@ -51,7 +51,7 @@ ft_printf(C_YELLOW"\nNEW MALLOC:\t\tsize = %d\t"C_RESET, size);
 	{
 		if (size <= g_zone.zone[i].q_size)
 		{
-			ft_printf("TYPE: %s\n", g_zone.zone[i].name);
+			ft_printf("TYPE: %s\tC_SIZE: %d\tM_SIZE: %d\n", g_zone.zone[i].name, CHUNK_SIZE, META_SIZE);
 			return (g_zone.zone[i].ft_malloc(size, &g_zone.zone[i]));
 		}
 		i++;
