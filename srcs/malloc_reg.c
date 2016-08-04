@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 18:02:13 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 14:38:30 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 14:55:34 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ ft_printf("find_block\n");
 	it = chunk->blocks_head.next;
 	while (it != &chunk->blocks_head)
 	{
-	ft_printf("find_block_while\n");		
 		free_block = C_NODE(t_block, it);
+ft_printf(C_CYAN"\tBlock adress: %p size of block = %d\tsize + META_SIZE = %d\n"C_RESET, it, free_block->size, size + META_SIZE);
 		if (free_block->free && free_block->size >= size)
 			return (split_block(chunk, free_block, size));
 		it = it->next;
@@ -64,7 +64,7 @@ ft_printf("add_chunk\tregion size: %d q_size: %d\n", zone->r_size, zone->q_size)
 	first_block->size = new->remain_size - META_SIZE;
 	first_block->free = true;
 	dlst_add_tail(&first_block->b_dlst, &new->blocks_head);
-ft_printf("\tChunk adress: %p\n", new);
+ft_printf(C_RED"\tChunk adress: %p\n"C_RESET, new);
 	return (new);
 }
 
@@ -78,7 +78,7 @@ ft_printf("find_chunk\n");
 	while (it != &zone->chunks_head)
 	{
 		chunk = C_NODE(t_chunk, it);
-ft_printf("\tadress: %p size of chunk remain = %d\tsize + META_SIZE = %d\n", it, chunk->remain_size, size + META_SIZE);
+ft_printf(C_GREEN"\tChunk adress: %p size of chunk remain = %d\tsize + CHUNK_SIZE = %d\n"C_RESET, it, chunk->remain_size, size + CHUNK_SIZE);
 		if (chunk->remain_size >= size + META_SIZE)
 		{
 ft_printf("\tChunk found adress: %p\n", chunk);
