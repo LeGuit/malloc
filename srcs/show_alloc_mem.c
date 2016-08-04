@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/06 14:34:29 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 14:07:28 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 18:05:00 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,6 @@ void			show_alloc_mem(void)
 	total += show_tiny_small(&g_zone.zone[0]);
 	total += show_tiny_small(&g_zone.zone[1]);
 	total += show_large(&g_zone.zone[2]);
-	ft_printf("Total : %u octets", total);
+	ft_printf("Total : %u octets\n", total);
 	return ;
 }

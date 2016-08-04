@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:36:31 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 16:09:20 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 18:05:42 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,13 @@ void		*malloc(size_t size)
 ft_printf(C_YELLOW"\nNEW MALLOC:\t\tsize = %d\t"C_RESET, size);
 	while (i < 3)
 	{
-		if (size <= g_zone.zone[i].q_size)
+		if (size <= g_zone.zone[i].r_size)
 		{
 			ft_printf("TYPE: %s\tC_SIZE: %d\tM_SIZE: %d\n", g_zone.zone[i].name, CHUNK_SIZE, META_SIZE);
-			return (g_zone.zone[i].ft_malloc(size, &g_zone.zone[i]));
+			{
+				//show_alloc_mem();
+				return (g_zone.zone[i].ft_malloc(size, &g_zone.zone[i]));
+			}
 		}
 		i++;
 	}

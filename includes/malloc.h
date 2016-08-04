@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 15:43:15 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 17:35:20 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 ** CHUNK_SIZE =>	size of the header of a chunk
 */
 
-# define CHUNK_SIZE		(uint32_t)sizeof(t_chunk)
-# define META_SIZE		(uint32_t)sizeof(t_block)
+# define CHUNK_SIZE		(size_t)sizeof(t_chunk)
+# define META_SIZE		(size_t)sizeof(t_block)
 #define ALIGN4(size)	(((size) + 0b11) & ~0b11)
 
 /*
@@ -63,7 +63,7 @@ struct		s_chunk
 {
 	t_dlst		chunk_node;
 	t_dlst		blocks_head;
-	uint32_t	remain_size;
+	size_t	remain_size;
 };
 
 /*
@@ -77,7 +77,7 @@ struct		s_chunk
 struct		s_block
 {
 	t_dlst		block_node;
-	uint32_t	size;
+	size_t	size;
 	bool		free;
 };
 
@@ -92,8 +92,8 @@ struct		s_block
 struct		s_zone
 {
 	t_dlst			chunks_head;
-	uint32_t const	q_size;
-	uint32_t const	r_size;
+	size_t const	q_size;
+	size_t const	r_size;
 	char const		*name;
 	void			*(*ft_malloc)(size_t size, t_zone *zone);
 	void			*(*ft_realloc)(void *ptr, size_t size);
