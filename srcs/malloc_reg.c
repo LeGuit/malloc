@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 18:02:13 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 13:47:28 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 14:38:30 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ ft_printf("find_block\n");
 			return (split_block(chunk, free_block, size));
 		it = it->next;
 	}
+	ft_printf("end_find_block_while\n");
 	return (NULL);
 }
 
@@ -52,7 +53,7 @@ static t_chunk		*add_chunk(t_zone *zone)
 	t_chunk				*new;
 	t_block				*first_block;
 
-ft_printf("add_chunk\n");
+ft_printf("add_chunk\tregion size: %d q_size: %d\n", zone->r_size, zone->q_size);
 	new = (t_chunk *)mmap(0, zone->r_size, MMAP_PROT, MMAP_FLAG, -1, 0);
 	if ((void *)new == MAP_FAILED)
 		return (NULL);
@@ -63,6 +64,7 @@ ft_printf("add_chunk\n");
 	first_block->size = new->remain_size - META_SIZE;
 	first_block->free = true;
 	dlst_add_tail(&first_block->b_dlst, &new->blocks_head);
+ft_printf("\tChunk adress: %p\n", new);
 	return (new);
 }
 
@@ -70,13 +72,18 @@ static t_chunk		*find_chunk(t_zone *zone, size_t size)
 {
 	t_dlst				*it;
 	t_chunk				*chunk;
-ft_printf("find_chunk\n");
+
 	it = zone->chunks_head.next;
+ft_printf("find_chunk\n");
 	while (it != &zone->chunks_head)
 	{
 		chunk = C_NODE(t_chunk, it);
+ft_printf("\tadress: %p size of chunk remain = %d\tsize + META_SIZE = %d\n", it, chunk->remain_size, size + META_SIZE);
 		if (chunk->remain_size >= size + META_SIZE)
+		{
+ft_printf("\tChunk found adress: %p\n", chunk);
 			return (chunk);
+		}
 		it = it->next;
 	}
 ft_printf("no_chunks_available\n");
@@ -87,10 +94,11 @@ void				*malloc_reg(size_t size, t_zone *zone)
 {
 	t_chunk				*chunk;
 	t_block				*block;
-ft_printf("m_reg\n");
+ft_printf("malloc_reg\n");
 	if (!(chunk = find_chunk(zone, size)))
 		return (NULL);
 ft_printf("after_find_chunk\n");
 	block = find_block(chunk, size);
+ft_printf("\tReturned ptr: %p\n", block);
 	return (block);
 }

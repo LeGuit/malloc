@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:36:31 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 14:09:24 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 14:32:11 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,14 @@ void		*malloc(size_t size)
 	i = 0;
 	if (size > MAX_LARGE)
 		return (NULL);
+ft_printf("\nNEW MALLOC:\t\tsize = %d\t", size);
 	while (i < 3)
 	{
-	ft_printf("malloc\n");
 		if (size <= g_zone.zone[i].q_size)
+		{
+			ft_printf("TYPE: %s\n", g_zone.zone[i].name);
 			return (g_zone.zone[i].ft_malloc(size, &g_zone.zone[i]));
+		}
 		i++;
 	}
 	return (NULL);
