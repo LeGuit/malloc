@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/06 16:48:10 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/03 12:35:55 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 14:08:09 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ void			free_large(void *ptr)
 	b = (t_block *)(c + CHUNK_SIZE);
 	if (!(munmap(c, b->size + CHUNK_SIZE + META_SIZE) == -1))
 		ft_printf("free large error");
-	dlst_del_entry(&c->c_dlst);
+	dlst_del_entry(&c->blocks_head);
 	return ;
 }
