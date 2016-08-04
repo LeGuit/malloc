@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 18:02:13 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 14:55:34 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 15:01:20 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ ft_printf("find_block\n");
 	while (it != &chunk->blocks_head)
 	{
 		free_block = C_NODE(t_block, it);
-ft_printf(C_CYAN"\tBlock adress: %p size of block = %d\tsize + META_SIZE = %d\n"C_RESET, it, free_block->size, size + META_SIZE);
+ft_printf(C_CYAN"\tBlock adress: %p is_free: %d size of block = %8d\tsize + META_SIZE = %d\n"C_RESET, it, free_block->free, free_block->size, size + META_SIZE);
 		if (free_block->free && free_block->size >= size)
 			return (split_block(chunk, free_block, size));
 		it = it->next;
@@ -78,7 +78,7 @@ ft_printf("find_chunk\n");
 	while (it != &zone->chunks_head)
 	{
 		chunk = C_NODE(t_chunk, it);
-ft_printf(C_GREEN"\tChunk adress: %p size of chunk remain = %d\tsize + CHUNK_SIZE = %d\n"C_RESET, it, chunk->remain_size, size + CHUNK_SIZE);
+ft_printf(C_GREEN"\tChunk adress: %p size of chunk remain = %8d\tsize + CHUNK_SIZE = %d\n"C_RESET, it, chunk->remain_size, size + CHUNK_SIZE);
 		if (chunk->remain_size >= size + META_SIZE)
 		{
 ft_printf("\tChunk found adress: %p\n", chunk);
