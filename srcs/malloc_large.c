@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 18:04:31 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/03 13:35:32 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 12:18:27 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_block	*create_chunk(t_zone *zone, size_t size)
 	first_block->size = size;
 	first_block->free = false;
 	dlst_add_tail(&first_block->b_dlst, &new->c_dlst);
-	dlst_add_tail(&new->c_dlst, &zone->head);
+	dlst_add_tail(&new->c_dlst, &zone->chunks_head);
 	return (first_block + META_SIZE);
 }
 

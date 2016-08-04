@@ -6,7 +6,7 @@
 #    By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/02 13:44:47 by gwoodwar          #+#    #+#              #
-#    Updated: 2016/08/03 15:13:05 by gwoodwar         ###   ########.fr        #
+#    Updated: 2016/08/04 13:56:57 by gwoodwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,14 +24,14 @@ SRCS_DIR =	srcs
 OBJS_DIR =	objs
 LIBS =		libft/libft.a
 
-LIST =	free \
-		free_op \
-		malloc \
-		malloc_large \
+LIST =	malloc \
 		malloc_reg \
+		malloc_large \
 		realloc \
 		tools_is_malloc \
-		show_alloc_mem	
+		show_alloc_mem	\
+		free \
+		free_op 
 
 SRCS := $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(LIST)))
 OBJS := $(addprefix $(OBJS_DIR)/, $(addsuffix .o, $(LIST)))
@@ -43,7 +43,7 @@ libft/libft.a:
 
 $(NAME): $(LIBS) $(OBJS)
 	$(CC) $(FLAGS) -shared -o $(NAME) $(OBJS) $(LIBFT)
-	ln -s $@ $(LINK)
+	ln -sf $@ $(LINK)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	mkdir -p $(dir $@)

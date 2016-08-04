@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/03 15:16:58 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 12:23:10 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,22 @@ extern t_malloc g_zone;
 /*
 ** ========================================================================== **
 ** memory chunk struct
-** 		c_dlst =>		head of chunks
+** 		blocks_head =>	head of blocks in a chunk
 ** 		remain_size => 	size of biggest free block or size of chunk for LARGE
 */
 
 struct		s_chunk
 {
-	t_dlst		c_dlst;
+	t_dlst		blocks_head;
 	uint32_t	remain_size;
 };
 
 /*
 ** ========================================================================== **
 ** blocks struct in chunks
+** 		b_dslt		=> dlist of blocks
+** 		size		=> size of a block (without META)
+** 		free		=> status of the block
 */
 
 struct		s_block
@@ -79,14 +82,14 @@ struct		s_block
 /*
 ** ========================================================================== **
 ** Zone struct that can be define as TINY or SMALL
-** 		head =>		ptr to zone
-** 		q_size =>	quantum size (16b / 512b / 4kb - Tiny / Small / Large)
-** 		r_size =>	region size (2MB / 16MB / N/A)
+** 	chunks_head =>		Head of chunks
+** 	q_size 		=>		quantum size (16b / 512b / 4kb - Tiny / Small / Large)
+** 	r_size 		=>		region size (2MB / 16MB / N/A)
 */
 
 struct		s_zone
 {
-	t_dlst			head;
+	t_dlst			chunks_head;
 	uint32_t const	q_size;
 	uint32_t const	r_size;
 	char const		*name;
@@ -146,4 +149,14 @@ void			*realloc(void *ptr, size_t size);
 bool			is_in_block(t_chunk *c, void *ptr);
 bool			is_in_chunk(t_zone *z, void *ptr);
 bool			is_in_chunk_large(t_zone *z, void *ptr);
+
+/*
+** ========================================================================== **
+** DEBUG
+*/
+
+#include <stdio.h>
+
+#define DEBUG_STEP			printf("TOTO");
+#define D_PRINT(f,...)		printf(f, ##__VA_ARGS__);fflush(stdout)
 #endif

@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/06 14:34:29 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/03 12:38:33 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/04 12:18:26 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int		show_large(t_zone *z)
 	uint32_t		sum;
 
 	sum = 0;
-	it = &z->head;
-	while ((it = it->next) != &z->head)
+	it = &z->chunks_head;
+	while ((it = it->next) != &z->chunks_head)
 	{
 		c = C_NODE(t_chunk, it);
 		b = b + CHUNK_SIZE + META_SIZE;
@@ -61,9 +61,9 @@ static int		show_tiny_small(t_zone *z)
 	t_chunk			*c;
 	uint32_t		size_block;
 
-	it = &z->head;
+	it = &z->chunks_head;
 	size_block = 0;
-	while ((it = it->next) != &z->head)
+	while ((it = it->next) != &z->chunks_head)
 	{
 		c = C_NODE(t_chunk, it);
 		ft_printf("%s : %#X\n", z->name, c);
