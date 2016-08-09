@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 11:47:56 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 17:35:20 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/09 16:58:38 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,13 @@ extern t_malloc g_zone;
 ** ========================================================================== **
 ** memory chunk struct
 ** 		blocks_head =>	head of blocks in a chunk
-** 		remain_size => 	size of biggest free block or size of chunk for LARGE
+** 		chunk_node	=>	ptr to dlst of chunks
 */
 
 struct		s_chunk
 {
 	t_dlst		chunk_node;
 	t_dlst		blocks_head;
-	size_t	remain_size;
 };
 
 /*
@@ -77,7 +76,7 @@ struct		s_chunk
 struct		s_block
 {
 	t_dlst		block_node;
-	size_t	size;
+	size_t		size;
 	bool		free;
 };
 
