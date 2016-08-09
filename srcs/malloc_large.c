@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 18:04:31 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/09 14:24:54 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/09 17:18:26 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,3 @@ void			*malloc_large(size_t size, t_zone *zone)
 	block = create_chunk(zone, size);
 	return (block);
 }
-
-	

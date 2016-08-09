@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 17:52:42 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/09 14:14:29 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/09 17:48:21 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static bool		is_space_realloc(void *ptr, size_t size)
 
 	next_b = (t_block *)(GET_B(ptr))->block_node.next;
 	if (next_b < GET_B(ptr))
-		return(false);
+		return (false);
 	tmp = next_b->block_node;
 	merge_size = (GET_B(ptr))->size + next_b->size;
 	if (!(next_b->free == true && ((GET_B(ptr))->size + next_b->size) >= size))
@@ -49,6 +49,7 @@ static bool		is_space_realloc(void *ptr, size_t size)
 void			*realloc(void *ptr, size_t size)
 {
 	bool			test;
+	
 ft_printf("REALLOC ptr_adress: %p\tsize: %d\n", ptr, size);
 	test = false;
 	if (!ptr)

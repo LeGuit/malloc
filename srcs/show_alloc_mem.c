@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/06 14:34:29 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 18:05:00 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/09 17:34:26 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static int		show_large(t_zone *z)
 	{
 		c = C_NODE(t_chunk, it);
 		b = b + CHUNK_SIZE + META_SIZE;
-		ft_printf("%s : %#X\n", z->name, c);
-		ft_printf("%#X - %#X : %u octets", b, b + b->size, b->size);
+		ft_printf("%s : %#x\n", z->name, c);
+		ft_printf("%#x - %#x : %u octets", b, b + b->size, b->size);
 		sum += b->size;
 		it = it->next;
 	}
@@ -46,9 +46,9 @@ static int		show_blocks(t_chunk *c)
 	while (it != &c->blocks_head)
 	{
 		b = C_NODE(t_block, it);
-		if (b->free == 0)
+		if (b->free == false)
 		{
-			ft_printf("%#X - %#X : %u octets\n",
+			ft_printf("%#x - %#x : %u octets\n",
 				BLOCK_ADR(b), BLOCK_ADR(b + b->size), b->size);
 			sum += b->size;
 		}
@@ -68,7 +68,7 @@ static int		show_tiny_small(t_zone *z)
 	while (it != &z->chunks_head)
 	{
 		c = C_NODE(t_chunk, it);
-		ft_printf("%s : %#X\n", z->name, c);
+		ft_printf("%s : %#x\n", z->name, c);
 		size_block += show_blocks(c);
 		it = it->next;
 	}
@@ -79,6 +79,7 @@ void			show_alloc_mem(void)
 {
 	uint32_t		total;
 
+	total = 0;
 	total += show_tiny_small(&g_zone.zone[0]);
 	total += show_tiny_small(&g_zone.zone[1]);
 	total += show_large(&g_zone.zone[2]);

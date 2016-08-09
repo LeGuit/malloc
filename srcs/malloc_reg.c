@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_reg_new.c                                   :+:      :+:    :+:   */
+/*   malloc_reg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/09 15:07:14 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/09 16:59:18 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/09 17:49:31 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,24 @@ static t_block		*split_block(t_block *block, size_t size)
 {
 	t_block				*next_block;
 
-ft_printf("split_block\tblock_size: %d\trequest_size: %d\n", block->size, size);
+	ft_printf("split_block\tblock_size: %d\trequest_size: %d\n", block->size, size);
 	if (block->size == size)
 	{
 		block->free = false;
 
-		ft_printf("\tReturned splitless ptr: %p\tsize of block = %8d\n", block, block->size);
+		ft_printf(C_RED"\tReturned splitless ptr: %p\tsize of block = %8d\n"C_RESET, block, block->size);
 		
 		return (block);
 	}
 	next_block = (void *)(block + 1) + size;
-	*next_block = (t_block){DLST_HEAD_NULL, block->size - (size + META_SIZE), true};
+	*next_block = (t_block){DLST_HEAD_NULL,
+		block->size - (size + META_SIZE), true};
 	dlst_add_head(&next_block->block_node, &block->block_node);
 	block->size = size;
 	block->free = false;
 
-ft_printf(C_CYAN"\tNext block adress: %p is_free: %d size of block = %8d\n"C_RESET, next_block, next_block->free, next_block->size);
-ft_printf("\tReturned ptr: %p\tsize of block = %8d\n", block, block->size);
-ft_printf("BLOCK + 1: %p\tBLOCK + META: %p\n", block + 1, block + META_SIZE);
+	ft_printf(C_CYAN"\tNext block adress: %p is_free: %d size of block = %8d\n"C_RESET, next_block, next_block->free, next_block->size);
+	ft_printf(C_RED"\tReturned ptr: %p\tsize of block = %8d\n"C_RESET, block, block->size);
 	return (block);
 }
 
