@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 17:52:42 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 15:43:41 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/09 14:14:29 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static bool		is_space_realloc(void *ptr, size_t size)
 void			*realloc(void *ptr, size_t size)
 {
 	bool			test;
-
+ft_printf("REALLOC ptr_adress: %p\tsize: %d\n", ptr, size);
 	test = false;
 	if (!ptr)
 		return (malloc(size));

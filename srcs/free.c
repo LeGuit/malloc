@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/06 16:25:14 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 18:01:23 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/09 14:13:18 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void			free(void *ptr)
 {
-	ft_printf("FREE\n");
+	ft_printf("FREE ptr_adress: %p\n", ptr);
 	if (is_in_chunk(&g_zone.zone[0], ptr) == true
 		|| is_in_chunk(&g_zone.zone[1], ptr) == true)
 		free_block(ptr);

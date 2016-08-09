@@ -6,7 +6,7 @@
 /*   By: gwoodwar <gwoodwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/06 16:48:10 by gwoodwar          #+#    #+#             */
-/*   Updated: 2016/08/04 15:43:43 by gwoodwar         ###   ########.fr       */
+/*   Updated: 2016/08/09 14:05:13 by gwoodwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ static void		merge_free(void *ptr)
 
 	b = (t_block *)(ptr - META_SIZE);
 	b->free = true;
-	if ((adj_b = C_NODE(t_block, b->block_node.prev))->free)
-		b = merge_blocks(adj_b, b);
-	if ((adj_b = C_NODE(t_block, b->block_node.next))->free)
-		b = merge_blocks(b, adj_b);
+	// if ((adj_b = CONTAINEROF(b, t_block, block_node.prev)->free))
+	// 	b = merge_blocks(adj_b, b);
+	// if ((adj_b = CONTAINEROF(b, t_block, block_node.next)->free))
+	// 	b = merge_blocks(b, adj_b);
 }
 
 void			free_block(void *ptr)
